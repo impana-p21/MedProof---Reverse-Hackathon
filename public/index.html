@@ -1,14 +1,487 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MedProof — Verifiable Clinical AI</title><link rel="stylesheet" href="style.css"></head><body>
-<div class="top"><div class="brand"><span class="logo">M</span><div><b>MedProof</b><small>Clinical AI Evidence Layer</small></div></div><div id="sdkBadge" class="badge">Checking CooL…</div></div>
-<main><section class="hero"><div><div class="eyebrow">PRIVACY-PRESERVING PROVENANCE</div><h1>Prove what your clinical AI <em>actually did.</em></h1><p>Generate a cryptographic evidence receipt for an AI-assisted clinical event, then verify it offline and demonstrate tamper detection.</p></div><div class="heroCard"><div class="shield">✓</div><b>Evidence, not exposure</b><span>Patient text is represented by cryptographic commitments in the browser demo.</span></div></section>
-<div class="grid"><section class="panel"><div class="panelHead"><div><h2>1 · Create evidence</h2><span>Use synthetic data only</span></div><span class="step">CREATE</span></div>
-<label>Clinical event<textarea id="input">Synthetic patient case: adult with fever and cough. AI summarizes the note for clinician review.</textarea></label>
-<div class="row"><label>AI model<input id="model" value="MedAssist-Summary"></label><label>Version<input id="version" value="2.4.1"></label></div>
-<label>AI output<textarea id="output">Summary generated for clinician review; no diagnosis or treatment decision is made by the model.</textarea></label>
-<button id="create">Create Proof <span>→</span></button><div id="createMsg" class="msg"></div></section>
-<section class="panel"><div class="panelHead"><div><h2>2 · Evidence receipt</h2><span>Portable verification artifact</span></div><span class="step">RECEIPT</span></div>
-<div id="empty" class="empty"><div class="doc">◇</div><b>No receipt yet</b><span>Create a proof to populate the evidence record.</span></div>
-<div id="receipt" class="hidden"><div class="status good"><b>✓ VERIFIED EVIDENCE READY</b><span id="mode"></span></div><div class="facts"><div><small>EVENT</small><b>model.execution</b></div><div><small>MODEL</small><b id="rmodel">—</b></div><div><small>TIME</small><b id="rtime">—</b></div><div><small>RECORD ID</small><b id="rid">—</b></div></div><div class="hash"><small>INPUT COMMITMENT</small><code id="ihash">—</code></div><div class="hash"><small>OUTPUT COMMITMENT</small><code id="ohash">—</code></div><button class="secondary" id="tamper">Simulate Tampering</button></div></section></div>
-<section class="verify"><div><div class="eyebrow">3 · VERIFY</div><h2>Independent verification</h2><p>Change one field in the receipt and run verification. The demo recomputes the commitment and detects the modification.</p></div><div class="verifyBox"><div id="verifyIcon" class="verifyIcon">✓</div><div><b id="verifyTitle">Evidence is valid</b><span id="verifyText">No tampering detected.</span></div></div></section>
-<section class="architecture"><div class="eyebrow">HOW MEDPROOF USES COOL</div><div class="flow"><div>Clinical AI<span>event + metadata</span></div><i>→</i><div>MedProof<span>privacy adapter</span></div><i>→</i><div>CooL SDK<span>commit · sign · anchor</span></div><i>→</i><div>Receipt<span>portable evidence</span></div><i>→</i><div>Verifier<span>offline check</span></div></div></section>
-<footer><span>MedProof • Reverse Hackathon Round 2</span><span>CooL: Cryptographic Observability & On-chain Ledger</span></footer></main><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050816">
+  <meta name="description" content="MedProof — Privacy-preserving cryptographic evidence for clinical AI">
+  <title>MedProof — Verifiable Clinical AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="grid-bg"></div>
+
+  <header class="top">
+    <a class="brand" href="/">
+      <span class="logo">
+        <span class="logo-cross">+</span>
+      </span>
+
+      <span class="brand-copy">
+        <strong>MedProof</strong>
+        <small>Clinical AI Evidence Layer</small>
+      </span>
+    </a>
+
+    <div class="nav">
+      <span class="nav-pill">
+        <span class="pulse"></span>
+        Privacy-first
+      </span>
+
+      <span id="sdkBadge" class="badge">
+        Checking CooL…
+      </span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          CRYPTOGRAPHIC OBSERVABILITY FOR CLINICAL AI
+        </div>
+
+        <h1>
+          Make AI decisions
+          <span>provable.</span>
+        </h1>
+
+        <p class="hero-description">
+          MedProof creates privacy-preserving evidence receipts for
+          AI-assisted clinical workflows — so every event can be
+          independently verified and tamper detection becomes measurable.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#create-proof" class="hero-button">
+            Create evidence
+            <span>↓</span>
+          </a>
+
+          <a href="#architecture" class="hero-link">
+            See how it works
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="trust-row">
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            <span>Privacy preserving</span>
+          </div>
+
+          <div class="trust-item">
+            <span class="trust-icon">⌁</span>
+            <span>SHA-256 commitments</span>
+          </div>
+
+          <div class="trust-item">
+            <span class="trust-icon">◉</span>
+            <span>Offline verifiable</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL -->
+      <div class="hero-visual">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+
+        <div class="proof-orb">
+          <div class="orb-glow"></div>
+
+          <div class="orb-core">
+            <div class="shield-large">
+              <span>✓</span>
+            </div>
+
+            <strong>VERIFIED</strong>
+            <small>Evidence Layer</small>
+          </div>
+        </div>
+
+        <div class="floating-card floating-top">
+          <span class="mini-icon blue">⌁</span>
+          <div>
+            <small>INPUT COMMITMENT</small>
+            <b>SHA-256</b>
+          </div>
+        </div>
+
+        <div class="floating-card floating-bottom">
+          <span class="mini-icon green">✓</span>
+          <div>
+            <small>INTEGRITY STATUS</small>
+            <b>Verified evidence</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+      <div class="stat">
+        <strong>01</strong>
+        <span>Clinical event</span>
+      </div>
+
+      <div class="stat-line"></div>
+
+      <div class="stat">
+        <strong>02</strong>
+        <span>Cryptographic receipt</span>
+      </div>
+
+      <div class="stat-line"></div>
+
+      <div class="stat">
+        <strong>03</strong>
+        <span>Independent verification</span>
+      </div>
+
+      <div class="stat-line"></div>
+
+      <div class="stat">
+        <strong>04</strong>
+        <span>Tamper detection</span>
+      </div>
+    </section>
+
+    <!-- CREATE / RECEIPT -->
+    <section id="create-proof" class="workspace">
+
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            LIVE PROOF WORKSPACE
+          </div>
+
+          <h2>
+            Generate an evidence receipt.
+          </h2>
+
+          <p>
+            Create a cryptographic record from synthetic clinical AI data.
+          </p>
+        </div>
+
+        <div class="demo-warning">
+          <span>●</span>
+          Synthetic data only
+        </div>
+      </div>
+
+      <div class="grid">
+
+        <!-- CREATE -->
+        <section class="panel create-panel">
+
+          <div class="panel-top">
+            <div class="step-number">01</div>
+
+            <div>
+              <span class="panel-kicker">CREATE</span>
+              <h3>Clinical event</h3>
+              <p>Define the AI-assisted event to prove.</p>
+            </div>
+          </div>
+
+          <div class="form">
+
+            <label>
+              <span>Clinical event</span>
+
+              <textarea id="input">Synthetic patient case: adult with fever and cough. AI summarizes the note for clinician review.</textarea>
+            </label>
+
+            <div class="row">
+
+              <label>
+                <span>AI model</span>
+                <input id="model" value="MedAssist-Summary">
+              </label>
+
+              <label>
+                <span>Version</span>
+                <input id="version" value="2.4.1">
+              </label>
+
+            </div>
+
+            <label>
+              <span>AI output</span>
+
+              <textarea id="output">Summary generated for clinician review; no diagnosis or treatment decision is made by the model.</textarea>
+            </label>
+
+            <button id="create" class="primary-button">
+              <span>Create cryptographic proof</span>
+              <b>→</b>
+            </button>
+
+            <div id="createMsg" class="msg"></div>
+
+          </div>
+        </section>
+
+        <!-- RECEIPT -->
+        <section class="panel receipt-panel">
+
+          <div class="panel-top">
+            <div class="step-number purple">02</div>
+
+            <div>
+              <span class="panel-kicker">RECEIPT</span>
+              <h3>Evidence artifact</h3>
+              <p>Portable proof generated from the event.</p>
+            </div>
+          </div>
+
+          <div id="empty" class="empty">
+
+            <div class="empty-visual">
+              <div class="empty-ring"></div>
+              <div class="empty-doc">◇</div>
+            </div>
+
+            <b>Waiting for evidence</b>
+
+            <span>
+              Create a proof to populate the verification record.
+            </span>
+
+            <div class="empty-label">
+              READY FOR INPUT
+            </div>
+
+          </div>
+
+          <div id="receipt" class="hidden">
+
+            <div class="verified-banner">
+              <div class="verified-check">✓</div>
+
+              <div>
+                <strong>VERIFIED EVIDENCE READY</strong>
+                <span id="mode">CooL SDK</span>
+              </div>
+
+              <span class="live-dot"></span>
+            </div>
+
+            <div class="facts">
+
+              <div class="fact">
+                <small>EVENT TYPE</small>
+                <b>model.execution</b>
+              </div>
+
+              <div class="fact">
+                <small>AI MODEL</small>
+                <b id="rmodel">—</b>
+              </div>
+
+              <div class="fact">
+                <small>TIMESTAMP</small>
+                <b id="rtime">—</b>
+              </div>
+
+              <div class="fact">
+                <small>RECORD ID</small>
+                <b id="rid">—</b>
+              </div>
+
+            </div>
+
+            <div class="hash-card">
+              <div class="hash-header">
+                <span>INPUT COMMITMENT</span>
+                <b>SHA-256</b>
+              </div>
+
+              <code id="ihash">—</code>
+            </div>
+
+            <div class="hash-card">
+              <div class="hash-header">
+                <span>OUTPUT COMMITMENT</span>
+                <b>SHA-256</b>
+              </div>
+
+              <code id="ohash">—</code>
+            </div>
+
+            <button class="secondary" id="tamper">
+              <span>Simulate tampering</span>
+              <b>⚡</b>
+            </button>
+
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- VERIFY -->
+    <section class="verify">
+
+      <div class="verify-copy">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot green"></span>
+          03 · INDEPENDENT VERIFICATION
+        </div>
+
+        <h2>
+          Can the evidence
+          <span>still be trusted?</span>
+        </h2>
+
+        <p>
+          MedProof recomputes the cryptographic commitment and detects
+          modifications to the recorded evidence.
+        </p>
+
+        <div class="verification-points">
+          <span>Commitment recomputation</span>
+          <span>Integrity validation</span>
+          <span>Tamper detection</span>
+        </div>
+
+      </div>
+
+      <div class="verifyBox">
+
+        <div id="verifyIcon" class="verifyIcon">
+          ✓
+        </div>
+
+        <div>
+          <small>VERIFICATION STATUS</small>
+          <b id="verifyTitle">Evidence is valid</b>
+          <span id="verifyText">No tampering detected.</span>
+        </div>
+
+        <div class="verification-badge">
+          SECURE
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture" class="architecture">
+
+      <div class="architecture-heading">
+
+        <div>
+          <div class="eyebrow cyan">
+            <span class="eyebrow-dot cyan-dot"></span>
+            MEDPROOF ARCHITECTURE
+          </div>
+
+          <h2>
+            From AI event to
+            <span>verifiable evidence.</span>
+          </h2>
+        </div>
+
+        <p>
+          A privacy-preserving evidence pipeline built around
+          cryptographic commitments and CooL.
+        </p>
+
+      </div>
+
+      <div class="flow">
+
+        <div class="flow-node active">
+          <div class="flow-icon">✦</div>
+          <strong>Clinical AI</strong>
+          <span>event + metadata</span>
+        </div>
+
+        <i>→</i>
+
+        <div class="flow-node">
+          <div class="flow-icon">◈</div>
+          <strong>MedProof</strong>
+          <span>privacy adapter</span>
+        </div>
+
+        <i>→</i>
+
+        <div class="flow-node highlight">
+          <div class="flow-icon">⌁</div>
+          <strong>CooL SDK</strong>
+          <span>commit · sign · anchor</span>
+        </div>
+
+        <i>→</i>
+
+        <div class="flow-node">
+          <div class="flow-icon">▣</div>
+          <strong>Receipt</strong>
+          <span>portable evidence</span>
+        </div>
+
+        <i>→</i>
+
+        <div class="flow-node">
+          <div class="flow-icon">✓</div>
+          <strong>Verifier</strong>
+          <span>offline check</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BOTTOM CTA -->
+    <section class="bottom-cta">
+
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          TRUST THE RECORD
+        </div>
+
+        <h2>
+          AI-generated events shouldn't just be stored.
+          <span>They should be provable.</span>
+        </h2>
+      </div>
+
+      <a href="#create-proof" class="cta-button">
+        Start a proof
+        <span>↑</span>
+      </a>
+
+    </section>
+
+    <footer>
+      <div class="footer-brand">
+        <span class="footer-logo">M</span>
+        <span>MedProof</span>
+      </div>
+
+      <span>Reverse Hackathon · CooL Cryptographic Observability</span>
+
+      <span>Prototype · Synthetic data only</span>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
