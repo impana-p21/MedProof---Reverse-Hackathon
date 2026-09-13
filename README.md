@@ -6,7 +6,8 @@ It helps create **cryptographically verifiable evidence receipts** for AI-genera
 
 ## 🚀 Live Demo
 
-🌐 **Vercel Demo:** `PASTE-YOUR-VERCEL-URL-HERE`
+🌐 **Vercel Demo:**
+https://med-proof-reverse-hackathon.vercel.app/
 
 🐙 **GitHub Repository:**
 https://github.com/impana-p21/MedProof---Reverse-Hackathon
@@ -68,7 +69,7 @@ This allows MedProof to use CooL for the cryptographic evidence/provenance layer
 
 ### Why CooL is important
 
-Without cryptographic evidence, a clinical AI event is essentially dependent on the integrity of the stored application data.
+Without cryptographic evidence, a clinical AI event is dependent on the integrity of the stored application data.
 
 With CooL, MedProof can associate the event with cryptographic evidence that can be used during verification.
 
@@ -149,7 +150,7 @@ The generated receipt can be verified to check whether the evidence remains vali
 
 The prototype allows the user to modify the evidence and run verification again.
 
-The verification then demonstrates the difference between:
+The verification demonstrates:
 
 **Valid evidence → Verification succeeds ✅**
 
@@ -210,7 +211,7 @@ http://localhost:3000
 
 The MedProof prototype is deployed using **Vercel**.
 
-The deployed application provides a live interface where reviewers can:
+The live application allows reviewers to:
 
 * Create an evidence receipt
 * Inspect the generated evidence
@@ -218,7 +219,13 @@ The deployed application provides a live interface where reviewers can:
 * Simulate tampering
 * Observe verification failure
 
-**Live Demo:** `PASTE-YOUR-VERCEL-URL-HERE`
+### 🔗 Live Demo
+
+https://med-proof-reverse-hackathon.vercel.app/
+
+### 🐙 GitHub Repository
+
+https://github.com/impana-p21/MedProof---Reverse-Hackathon
 
 ---
 
@@ -226,7 +233,7 @@ The deployed application provides a live interface where reviewers can:
 
 MedProof is designed around the principle that sensitive clinical information should not need to be exposed simply to prove the integrity of an AI event.
 
-The prototype therefore focuses on **cryptographic evidence and commitments rather than exposing sensitive clinical information**.
+The prototype focuses on **cryptographic evidence and commitments rather than exposing sensitive clinical information**.
 
 For the hackathon demonstration, only synthetic/demo patient data should be used.
 
@@ -278,4 +285,4 @@ CooL provides the cryptographic evidence layer that makes this possible in the M
 
 ## 📄 License
 
-This project is open source and created as a prototype for the CooL SDK Reverse Hackathon.
+This project is open source and created as a prototype for the **CooL SDK Reverse Hackathon**.
