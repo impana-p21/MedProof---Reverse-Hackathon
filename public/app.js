@@ -12,14 +12,20 @@ async function sha(text) {
 }
 
 function id() {
-  return 'MP-' +
+  return (
+    'MP-' +
     Date.now().toString(36).toUpperCase() +
     '-' +
-    Math.random().toString(36).slice(2, 7).toUpperCase();
+    Math.random().toString(36).slice(2, 7).toUpperCase()
+  );
 }
 
-async function createLocal() {
 
+/* =========================
+   LOCAL CRYPTOGRAPHIC DEMO
+   ========================= */
+
+async function createLocal() {
   const input = $('input').value;
   const output = $('output').value;
   const model = $('model').value;
@@ -43,6 +49,7 @@ async function createLocal() {
 
     input_hash: ih,
     output_hash: oh,
+
     salt,
 
     software: {
@@ -54,16 +61,51 @@ async function createLocal() {
   };
 }
 
+
+/* =========================
+   RENDER RECEIPT
+   ========================= */
+
 function render(r) {
 
-  state = r;
+  /*
+   * IMPORTANT FIX:
+   * CooL SDK responses may store hashes here:
+   *
+   * record.event.commitments.input
+   *
+   * instead of:
+   *
+   * input_hash
+   *
+   * We normalize both formats so Tamper Lab always works.
+   */
 
-  state.original_input_hash = r.input_hash || '';
+  const inputHash =
+    r.input_hash ||
+    r.record?.event?.commitments?.input ||
+    '';
+
+  const outputHash =
+    r.output_hash ||
+    r.record?.event?.commitments?.output ||
+    '';
+
+  state = {
+    ...r,
+
+    input_hash: inputHash,
+    output_hash: outputHash,
+
+    // Keep the original hash so tampering can always be simulated
+    original_input_hash: inputHash
+  };
 
   $('empty').classList.add('hidden');
   $('receipt').classList.remove('hidden');
 
-  $('mode').textContent = r.mode || 'CooL SDK';
+  $('mode').textContent =
+    r.mode || 'CooL SDK';
 
   $('rmodel').textContent =
     (r.metadata?.model || '—') +
@@ -79,24 +121,23 @@ function render(r) {
     '—';
 
   $('ihash').textContent =
-    r.input_hash ||
-    r.record?.event?.commitments?.input ||
-    '—';
+    inputHash || '—';
 
   $('ohash').textContent =
-    r.output_hash ||
-    r.record?.event?.commitments?.output ||
-    '—';
+    outputHash || '—';
 
+  // Reset verification state
   $('verifyIcon').textContent = '✓';
   $('verifyIcon').style.background = 'var(--green)';
 
-  $('verifyTitle').textContent = 'Evidence is valid';
+  $('verifyTitle').textContent =
+    'Evidence is valid';
 
   $('verifyText').textContent =
     'No tampering detected.';
 
-  const badge = document.getElementById('verifyBadge');
+  const badge =
+    document.querySelector('.verify-badge');
 
   if (badge) {
     badge.textContent = 'SECURE';
@@ -105,9 +146,11 @@ function render(r) {
 }
 
 
-/* CREATE */
+/* =========================
+   CREATE CRYPTOGRAPHIC PROOF
+   ========================= */
 
-$('create').addEventListener('click', async function () {
+$('create').onclick = async () => {
 
   $('createMsg').textContent =
     'Creating cryptographic evidence…';
@@ -164,45 +207,70 @@ $('create').addEventListener('click', async function () {
     $('createMsg').textContent =
       'Browser cryptographic demo active; install cool-nwc for live SDK mode.';
   }
-});
+};
 
 
-/* =========================================================
-   TAMPER — THIS IS THE IMPORTANT PART
-========================================================= */
+/* =========================
+   TAMPER SIMULATION
+   ========================= */
 
-$('tamper').addEventListener('click', function () {
+function simulateTampering() {
 
+  // User must create evidence first
   if (!state) {
 
-    $('verifyIcon').textContent = '!';
-
-    $('verifyIcon').style.background = 'var(--red)';
-
-    $('verifyTitle').textContent =
-      'Create evidence first';
-
-    $('verifyText').textContent =
-      'Create a cryptographic proof before simulating tampering.';
+    alert(
+      'Create a cryptographic proof first, then test tampering.'
+    );
 
     return;
   }
+
+  /*
+   * Get the ORIGINAL hash.
+   * This works for both browser demo and CooL SDK response.
+   */
 
   const original =
     state.original_input_hash ||
-    state.input_hash;
+    state.input_hash ||
+    state.record?.event?.commitments?.input ||
+    '';
 
   if (!original) {
+
+    alert(
+      'No cryptographic commitment found. Please create the proof again.'
+    );
+
     return;
   }
 
+  // Save original hash permanently
+  state.original_input_hash = original;
+
+  // Flip the last hexadecimal character
+  const lastChar =
+    original.slice(-1);
+
+  const replacement =
+    lastChar.toLowerCase() === '0'
+      ? '1'
+      : '0';
+
+  const tamperedHash =
+    original.slice(0, -1) +
+    replacement;
+
+  // Update state
   state.input_hash =
-    original.substring(0, original.length - 1) +
-    (original.endsWith('0') ? '1' : '0');
+    tamperedHash;
 
+  // Update visible hash
   $('ihash').textContent =
-    state.input_hash;
+    tamperedHash;
 
+  // Verification failed
   $('verifyIcon').textContent = '×';
 
   $('verifyIcon').style.background =
@@ -214,24 +282,128 @@ $('tamper').addEventListener('click', function () {
   $('verifyText').textContent =
     'Tampering detected: commitment no longer matches the original event.';
 
+  // Change badge if available
   const badge =
-    document.getElementById('verifyBadge');
+    document.querySelector('.verify-badge');
 
   if (badge) {
-    badge.textContent = 'TAMPERED';
-    badge.style.color = 'var(--red)';
+
+    badge.textContent =
+      'TAMPERED';
+
+    badge.style.color =
+      'var(--red)';
   }
-});
+
+  // Scroll to verification section
+  const verification =
+    $('verification');
+
+  if (verification) {
+
+    verification.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }
+}
 
 
-/* SDK STATUS */
+/* =========================
+   TAMPER BUTTON
+   ========================= */
 
-(async function () {
+const tamperButton =
+  $('tamper');
+
+if (tamperButton) {
+
+  tamperButton.addEventListener(
+    'click',
+    function (event) {
+
+      event.preventDefault();
+
+      simulateTampering();
+    }
+  );
+}
+
+
+/* =========================
+   HERO "TEST TAMPERING"
+   ========================= */
+
+document.addEventListener(
+  'click',
+  function (event) {
+
+    const button =
+      event.target.closest('.button-danger');
+
+    if (!button) return;
+
+    event.preventDefault();
+
+    simulateTampering();
+  }
+);
+
+
+/* =========================
+   NAVIGATION "TAMPER LAB"
+   ========================= */
+
+document.addEventListener(
+  'click',
+  function (event) {
+
+    const link =
+      event.target.closest(
+        '.main-nav a[href="#tamper"]'
+      );
+
+    if (!link) return;
+
+    event.preventDefault();
+
+    simulateTampering();
+  }
+);
+
+
+/* =========================
+   EXTRA EVENT-DELEGATION
+   SAFETY FOR TAMPER BUTTON
+   ========================= */
+
+document.addEventListener(
+  'click',
+  function (event) {
+
+    const button =
+      event.target.closest('#tamper');
+
+    if (!button) return;
+
+    event.preventDefault();
+
+    simulateTampering();
+  }
+);
+
+
+/* =========================
+   CHECK COoL SDK STATUS
+   ========================= */
+
+(async () => {
 
   try {
 
     const s =
-      await fetch('/api/status').then(r => r.json());
+      await fetch('/api/status')
+        .then(r => r.json());
 
     $('sdkBadge').textContent =
       s.coolInstalled
