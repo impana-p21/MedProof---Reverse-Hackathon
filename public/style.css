@@ -2160,4 +2160,241 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+   /* =========================================================
+   TYPOGRAPHY OVERRIDE — READABLE UI
+   Minimum practical UI font size: 12px
+========================================================= */
+
+:root {
+  --font-min: 12px;
+  --font-ui: 14px;
+  --font-body: 15px;
+  --font-small: 12px;
+  --font-label: 12px;
+  --font-mono: 12px;
+}
+
+/* Base */
+body {
+  font-size: var(--font-body);
+}
+
+/* Navigation */
+.main-nav a {
+  font-size: 13px;
+}
+
+.nav-count {
+  font-size: 12px;
+}
+
+.environment,
+.operational,
+.top-status {
+  font-size: 12px;
+}
+
+/* Integrity strip */
+.integrity-good,
+.scope,
+.integrity-explanation {
+  font-size: 12px;
+}
+
+/* Section labels */
+.section-label {
+  font-size: 12px;
+}
+
+/* Hero */
+.hero-copy {
+  font-size: 16px;
+}
+
+/* Buttons */
+.button,
+.generate-button,
+.tamper-button {
+  font-size: 13px;
+}
+
+.button-icon {
+  font-size: 14px;
+}
+
+/* Hero proof card */
+.proof-status,
+.proof-code {
+  font-size: 12px;
+}
+
+.proof-caption {
+  font-size: 12px;
+}
+
+.proof-meta {
+  font-size: 12px;
+}
+
+.proof-meta b {
+  font-size: 12px;
+}
+
+.floating-status small {
+  font-size: 12px;
+}
+
+.floating-status strong {
+  font-size: 12px;
+}
+
+/* Metrics */
+.metric-number {
+  font-size: 12px;
+}
+
+.metric strong {
+  font-size: 14px;
+}
+
+.metric small {
+  font-size: 12px;
+}
+
+/* Decision console */
+.synthetic-badge {
+  font-size: 12px;
+}
+
+.card-step {
+  font-size: 13px;
+}
+
+.card-kicker {
+  font-size: 12px;
+}
+
+.card-header h3 {
+  font-size: 18px;
+}
+
+.card-header p {
+  font-size: 14px;
+}
+
+/* Forms */
+.form-field label {
+  font-size: 12px;
+}
+
+textarea,
+input {
+  font-size: 14px;
+}
+
+.message {
+  font-size: 12px;
+}
+
+/* Empty receipt */
+.empty-state strong {
+  font-size: 14px;
+}
+
+.empty-state p {
+  font-size: 13px;
+}
+
+.empty-status {
+  font-size: 12px;
+}
+
+/* Receipt */
+.receipt-success strong {
+  font-size: 12px;
+}
+
+.receipt-success span {
+  font-size: 12px;
+}
+
+.receipt-field span {
+  font-size: 12px;
+}
+
+.receipt-field strong {
+  font-size: 12px;
+}
+
+.hash-title span,
+.hash-title b {
+  font-size: 12px;
+}
+
+.hash-box code {
+  font-size: 12px;
+}
+
+/* System status */
+.system-live {
+  font-size: 12px;
+}
+
+.system-row {
+  font-size: 14px;
+}
+
+.system-row strong {
+  font-size: 12px;
+}
+
+.system-note {
+  font-size: 12px;
+}
+
+/* Verification */
+.verification-copy > p {
+  font-size: 15px;
+}
+
+.verification-tags span {
+  font-size: 12px;
+}
+
+.verify-content > span {
+  font-size: 12px;
+}
+
+.verify-content strong {
+  font-size: 16px;
+}
+
+.verify-content p {
+  font-size: 13px;
+}
+
+.verify-badge {
+  font-size: 12px;
+}
+
+/* Architecture */
+.pipeline-node strong {
+  font-size: 12px;
+}
+
+.pipeline-node span {
+  font-size: 12px;
+}
+
+/* Footer */
+.footer-brand strong {
+  font-size: 12px;
+}
+
+.footer-brand span,
+.footer-center,
+.footer-right {
+  font-size: 12px;
+}
+
 }
