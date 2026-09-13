@@ -58,7 +58,11 @@
         <span class="nav-count">3</span>
       </a>
 
-      <a href="#tamper">
+      <!-- UPDATED: Tamper Lab now directly runs tampering test -->
+      <a
+        href="#tamper"
+        onclick="simulateTampering(); return false;"
+      >
         Tamper Lab
       </a>
 
@@ -147,7 +151,12 @@
             INSPECT EVIDENCE
           </a>
 
-          <button class="button button-danger" type="button" onclick="document.getElementById('tamper').click()">
+          <!-- UPDATED -->
+          <button
+            class="button button-danger"
+            type="button"
+            onclick="simulateTampering()"
+          >
             <span class="button-icon">⚠</span>
             TEST TAMPERING
           </button>
@@ -389,7 +398,7 @@
           </div>
 
 
-          <button id="create" class="generate-button">
+          <button id="create" class="generate-button" type="button">
 
             <span>
               CREATE CRYPTOGRAPHIC PROOF
@@ -514,7 +523,13 @@
             </div>
 
 
-            <button id="tamper" class="tamper-button">
+            <!-- UPDATED -->
+            <button
+              id="tamper"
+              class="tamper-button"
+              type="button"
+              onclick="simulateTampering()"
+            >
 
               <span>
                 ⚠ SIMULATE TAMPERING
@@ -899,6 +914,10 @@
 
   </main>
 
+
+  <!-- =========================================================
+       APP JAVASCRIPT
+  ========================================================== -->
 
   <script src="/app.js"></script>
 
