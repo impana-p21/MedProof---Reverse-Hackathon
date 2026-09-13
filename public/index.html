@@ -3,161 +3,226 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f9ff">
-  <meta name="description" content="MedProof — Verifiable evidence for clinical AI">
-  <title>MedProof — Make AI Decisions Provable</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#06090f">
+
+  <title>MedProof — Clinical AI Evidence</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-  <div class="background-shape shape-one"></div>
-  <div class="background-shape shape-two"></div>
-  <div class="background-shape shape-three"></div>
+  <!-- =========================================================
+       TOP NAVIGATION
+  ========================================================== -->
 
   <header class="topbar">
-    <a href="/" class="brand">
-      <div class="brand-logo">
-        <span>✚</span>
+
+    <div class="brand">
+
+      <div class="brand-mark">
+        <span>⌁</span>
       </div>
 
-      <div>
+      <div class="brand-text">
         <strong>MedProof</strong>
-        <small>Clinical AI Evidence</small>
-      </div>
-    </a>
-
-    <div class="top-actions">
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        Privacy-first
+        <small>AI Decision Evidence</small>
       </div>
 
-      <span id="sdkBadge" class="sdk-badge">
-        Checking CooL…
-      </span>
     </div>
+
+    <nav class="main-nav">
+
+      <a class="active" href="#overview">
+        Overview
+      </a>
+
+      <a href="#create-proof">
+        Decision Console
+      </a>
+
+      <a href="#receipt">
+        Evidence
+      </a>
+
+      <a href="#verification">
+        Verification
+        <span class="nav-count">3</span>
+      </a>
+
+      <a href="#tamper">
+        Tamper Lab
+      </a>
+
+    </nav>
+
+    <div class="top-status">
+
+      <span class="environment">
+        <i></i>
+        ENVIRONMENT: DEMO
+      </span>
+
+      <span id="sdkBadge" class="operational">
+        <i></i>
+        CHECKING...
+      </span>
+
+    </div>
+
   </header>
 
-  <main>
 
-    <!-- HERO -->
+  <!-- =========================================================
+       INTEGRITY STRIP
+  ========================================================== -->
+
+  <div class="integrity-strip">
+
+    <div class="integrity-left">
+
+      <span class="integrity-good">
+        <i>✓</i>
+        INTEGRITY PROVEN
+      </span>
+
+      <span class="scope">
+        MODEL FAIRNESS: OUT OF SCOPE
+      </span>
+
+    </div>
+
+    <div class="integrity-explanation">
+      MedProof verifies evidence integrity &amp; provenance —
+      not AI correctness, fairness, or statutory compliance.
+    </div>
+
+  </div>
+
+
+  <main id="overview">
+
+
+    <!-- =======================================================
+         HERO
+    ======================================================== -->
+
     <section class="hero">
 
-      <div class="hero-left">
+      <div class="hero-content">
 
-        <div class="eyebrow">
+        <div class="section-label">
           <span></span>
-          TRUST INFRASTRUCTURE FOR CLINICAL AI
+          PRIVACY-PRESERVING CLINICAL AI
         </div>
 
         <h1>
-          Make AI decisions
-          <em>provable.</em>
+          Cryptographic evidence for
+          <span>clinical AI decisions.</span>
         </h1>
 
-        <p class="hero-text">
-          MedProof turns AI-assisted clinical events into
-          privacy-preserving, cryptographically verifiable evidence.
+        <p class="hero-copy">
+          Capture decision state at the AI boundary — salted commitments,
+          cryptographic evidence, and offline verification — without
+          exposing sensitive clinical content.
         </p>
 
-        <div class="hero-buttons">
-          <a href="#create-proof" class="btn-primary">
-            Create a proof
-            <span>→</span>
+        <div class="hero-actions">
+
+          <a class="button button-primary" href="#create-proof">
+            <span class="button-icon">▶</span>
+            RUN DECISION
           </a>
 
-          <a href="#how-it-works" class="btn-secondary">
-            Explore how it works
-            <span>↓</span>
+          <a class="button button-secondary" href="#receipt">
+            <span class="button-icon">⌕</span>
+            INSPECT EVIDENCE
           </a>
-        </div>
 
-        <div class="hero-trust">
-
-          <div>
-            <b>✓</b>
-            <span>Privacy preserving</span>
-          </div>
-
-          <div>
-            <b>⌁</b>
-            <span>Cryptographic proof</span>
-          </div>
-
-          <div>
-            <b>◉</b>
-            <span>Independently verifiable</span>
-          </div>
+          <button class="button button-danger" type="button" onclick="document.getElementById('tamper').click()">
+            <span class="button-icon">⚠</span>
+            TEST TAMPERING
+          </button>
 
         </div>
 
       </div>
 
-      <div class="hero-right">
+      <div class="hero-visual">
 
-        <div class="hero-glow"></div>
+        <div class="visual-grid"></div>
+
+        <div class="evidence-ring ring-one"></div>
+        <div class="evidence-ring ring-two"></div>
 
         <div class="proof-card">
 
           <div class="proof-card-top">
-            <span class="tiny-label">MEDPROOF RECEIPT</span>
 
-            <span class="verified-pill">
-              <i>✓</i> VERIFIED
+            <span class="proof-status">
+              <i></i>
+              VERIFIED
             </span>
+
+            <span class="proof-code">
+              MP / 01
+            </span>
+
           </div>
 
-          <div class="proof-icon">
+          <div class="proof-symbol">
             ✓
           </div>
 
-          <h3>Evidence verified</h3>
+          <strong>
+            EVIDENCE
+            <br>
+            PROOF
+          </strong>
 
-          <p>
-            Cryptographic integrity confirmed
-            without exposing sensitive clinical data.
-          </p>
+          <span class="proof-caption">
+            CRYPTOGRAPHICALLY SEALED
+          </span>
 
-          <div class="proof-lines">
+          <div class="proof-line"></div>
 
-            <div>
-              <span>Input commitment</span>
-              <strong>SHA-256</strong>
-            </div>
+          <div class="proof-meta">
 
-            <div>
-              <span>Output commitment</span>
-              <strong>SHA-256</strong>
-            </div>
+            <span>
+              INPUT
+              <b>SHA-256</b>
+            </span>
 
-            <div>
-              <span>Integrity</span>
-              <strong class="green-text">VALID</strong>
-            </div>
+            <span>
+              OUTPUT
+              <b>SHA-256</b>
+            </span>
 
           </div>
 
-          <div class="proof-hash">
+        </div>
+
+        <div class="floating-status floating-one">
+          <span class="floating-icon cyan">⌁</span>
+          <div>
             <small>COMMITMENT</small>
-            <code>8f42...b72a...91c4</code>
-          </div>
-
-        </div>
-
-        <div class="floating-tag tag-one">
-          <span class="tag-icon purple">✦</span>
-          <div>
-            <b>AI EVENT</b>
-            <small>Captured</small>
+            <strong>SEALED</strong>
           </div>
         </div>
 
-        <div class="floating-tag tag-two">
-          <span class="tag-icon green">✓</span>
+        <div class="floating-status floating-two">
+          <span class="floating-icon green">✓</span>
           <div>
-            <b>INTEGRITY</b>
-            <small>100% verified</small>
+            <small>INTEGRITY</small>
+            <strong>PROVEN</strong>
           </div>
         </div>
 
@@ -165,137 +230,196 @@
 
     </section>
 
-    <!-- STATS -->
-    <section class="stats">
 
-      <div class="stat-item">
-        <strong>01</strong>
-        <span>Capture AI event</span>
+    <!-- =======================================================
+         QUICK METRICS
+    ======================================================== -->
+
+    <section class="metrics">
+
+      <div class="metric">
+        <span class="metric-number">01</span>
+        <div>
+          <strong>Capture</strong>
+          <small>AI event state</small>
+        </div>
       </div>
 
-      <div class="stat-arrow">→</div>
+      <div class="metric-divider"></div>
 
-      <div class="stat-item">
-        <strong>02</strong>
-        <span>Create commitment</span>
+      <div class="metric">
+        <span class="metric-number">02</span>
+        <div>
+          <strong>Commit</strong>
+          <small>Salted SHA-256</small>
+        </div>
       </div>
 
-      <div class="stat-arrow">→</div>
+      <div class="metric-divider"></div>
 
-      <div class="stat-item">
-        <strong>03</strong>
-        <span>Generate receipt</span>
+      <div class="metric">
+        <span class="metric-number">03</span>
+        <div>
+          <strong>Record</strong>
+          <small>Portable receipt</small>
+        </div>
       </div>
 
-      <div class="stat-arrow">→</div>
+      <div class="metric-divider"></div>
 
-      <div class="stat-item">
-        <strong>04</strong>
-        <span>Verify integrity</span>
+      <div class="metric">
+        <span class="metric-number">04</span>
+        <div>
+          <strong>Verify</strong>
+          <small>Detect tampering</small>
+        </div>
       </div>
 
     </section>
 
 
-    <!-- WORKSPACE -->
+    <!-- =======================================================
+         DECISION CONSOLE
+    ======================================================== -->
+
     <section id="create-proof" class="workspace">
 
-      <div class="section-intro">
+      <div class="section-heading">
 
         <div>
-          <span class="section-number">01</span>
 
-          <div class="eyebrow">
-            LIVE PROOF WORKSPACE
+          <div class="section-label">
+            <span></span>
+            DECISION CONSOLE
           </div>
 
-          <h2>Create your evidence receipt.</h2>
+          <h2>
+            Capture an AI decision.
+          </h2>
 
           <p>
-            Generate a cryptographic proof using synthetic clinical AI data.
+            Generate a privacy-preserving evidence receipt from synthetic
+            clinical AI data.
           </p>
+
         </div>
 
-        <div class="synthetic-label">
-          <span>●</span>
-          Synthetic data only
+        <div class="synthetic-badge">
+          <i></i>
+          SYNTHETIC DATA ONLY
         </div>
 
       </div>
 
 
-      <div class="workspace-grid">
+      <div class="console-grid">
 
-        <!-- CREATE PANEL -->
-        <section class="card create-card">
 
-          <div class="card-heading">
+        <!-- ===================================================
+             INPUT
+        ==================================================== -->
 
-            <div class="card-icon blue-icon">
+        <section class="card input-card">
+
+          <div class="card-header">
+
+            <div class="card-step">
               01
             </div>
 
             <div>
-              <small>CREATE</small>
+              <span class="card-kicker">DECISION INPUT</span>
               <h3>Clinical AI event</h3>
-              <p>Describe what happened.</p>
+              <p>Define the event that should become provable.</p>
             </div>
 
           </div>
 
-          <div class="form">
 
-            <label>
-              Clinical event
+          <div class="form-field">
 
-              <textarea id="input">Synthetic patient case: adult with fever and cough. AI summarizes the note for clinician review.</textarea>
+            <label for="input">
+              CLINICAL EVENT
             </label>
 
-            <div class="two-columns">
+            <textarea id="input">Synthetic patient case: adult with fever and cough. AI summarizes the note for clinician review.</textarea>
 
-              <label>
-                AI model
-                <input id="model" value="MedAssist-Summary">
+          </div>
+
+
+          <div class="form-row">
+
+            <div class="form-field">
+
+              <label for="model">
+                AI MODEL
               </label>
 
-              <label>
-                Version
-                <input id="version" value="2.4.1">
-              </label>
+              <input
+                id="model"
+                value="MedAssist-Summary"
+              >
 
             </div>
 
-            <label>
-              AI output
+            <div class="form-field">
 
-              <textarea id="output">Summary generated for clinician review; no diagnosis or treatment decision is made by the model.</textarea>
-            </label>
+              <label for="version">
+                MODEL VERSION
+              </label>
 
-            <button id="create" class="create-button">
-              <span>Create cryptographic proof</span>
-              <strong>→</strong>
-            </button>
+              <input
+                id="version"
+                value="2.4.1"
+              >
 
-            <div id="createMsg" class="message"></div>
+            </div>
 
           </div>
+
+
+          <div class="form-field">
+
+            <label for="output">
+              AI OUTPUT
+            </label>
+
+            <textarea id="output">Summary generated for clinician review; no diagnosis or treatment decision is made by the model.</textarea>
+
+          </div>
+
+
+          <button id="create" class="generate-button">
+
+            <span>
+              CREATE CRYPTOGRAPHIC PROOF
+            </span>
+
+            <b>→</b>
+
+          </button>
+
+          <div id="createMsg" class="message"></div>
 
         </section>
 
 
-        <!-- RECEIPT PANEL -->
+        <!-- ===================================================
+             RECEIPT
+        ==================================================== -->
+
         <section class="card receipt-card">
 
-          <div class="card-heading">
+          <div class="card-header">
 
-            <div class="card-icon violet-icon">
+            <div class="card-step purple">
               02
             </div>
 
             <div>
-              <small>RECEIPT</small>
-              <h3>Evidence artifact</h3>
-              <p>Your portable proof appears here.</p>
+              <span class="card-kicker">EVIDENCE RECEIPT</span>
+              <h3>Portable proof artifact</h3>
+              <p>Generated evidence that can be independently checked.</p>
             </div>
 
           </div>
@@ -304,56 +428,62 @@
           <div id="empty" class="empty-state">
 
             <div class="empty-icon">
-              <div>✦</div>
+              <span>◇</span>
             </div>
 
-            <h4>Nothing verified yet</h4>
+            <strong>
+              No evidence generated
+            </strong>
 
             <p>
-              Create a proof and your cryptographic
-              evidence receipt will appear here.
+              Run a decision to create a cryptographic receipt.
             </p>
 
-            <span>READY FOR INPUT</span>
+            <span class="empty-status">
+              WAITING FOR INPUT
+            </span>
 
           </div>
 
 
           <div id="receipt" class="hidden">
 
-            <div class="success-banner">
 
-              <div class="success-icon">✓</div>
+            <div class="receipt-success">
+
+              <div class="success-icon">
+                ✓
+              </div>
 
               <div>
-                <strong>Evidence verified</strong>
+                <strong>EVIDENCE CREATED</strong>
                 <span id="mode">CooL SDK</span>
               </div>
 
-              <div class="success-dot"></div>
+              <i></i>
 
             </div>
 
 
             <div class="receipt-grid">
 
-              <div class="receipt-detail">
-                <small>EVENT TYPE</small>
+              <div class="receipt-field">
+                <span>EVENT TYPE</span>
                 <strong>model.execution</strong>
               </div>
 
-              <div class="receipt-detail">
-                <small>AI MODEL</small>
+              <div class="receipt-field">
+                <span>AI MODEL</span>
                 <strong id="rmodel">—</strong>
               </div>
 
-              <div class="receipt-detail">
-                <small>TIMESTAMP</small>
+              <div class="receipt-field">
+                <span>TIMESTAMP</span>
                 <strong id="rtime">—</strong>
               </div>
 
-              <div class="receipt-detail">
-                <small>RECORD ID</small>
+              <div class="receipt-field">
+                <span>RECORD ID</span>
                 <strong id="rid">—</strong>
               </div>
 
@@ -362,7 +492,7 @@
 
             <div class="hash-box">
 
-              <div>
+              <div class="hash-title">
                 <span>INPUT COMMITMENT</span>
                 <b>SHA-256</b>
               </div>
@@ -374,7 +504,7 @@
 
             <div class="hash-box">
 
-              <div>
+              <div class="hash-title">
                 <span>OUTPUT COMMITMENT</span>
                 <b>SHA-256</b>
               </div>
@@ -385,8 +515,13 @@
 
 
             <button id="tamper" class="tamper-button">
-              <span>⚡ Simulate tampering</span>
-              <small>Test detection</small>
+
+              <span>
+                ⚠ SIMULATE TAMPERING
+              </span>
+
+              <b>TEST</b>
+
             </button>
 
           </div>
@@ -398,56 +533,164 @@
     </section>
 
 
-    <!-- VERIFICATION -->
-    <section class="verification-section">
+    <!-- =======================================================
+         SYSTEM STATUS
+    ======================================================== -->
 
-      <div class="verification-copy">
+    <section class="system-card">
 
-        <div class="eyebrow green-eyebrow">
-          <span></span>
-          03 · INDEPENDENT VERIFICATION
+      <div class="system-title">
+
+        <div>
+          <div class="section-label">
+            <span></span>
+            SYSTEM STATUS
+          </div>
+
+          <h2>
+            Evidence infrastructure
+          </h2>
         </div>
 
-        <h2>
-          Can the evidence
-          <em>still be trusted?</em>
-        </h2>
+        <span class="system-live">
+          <i></i>
+          SESSION OPERATIONAL
+        </span>
 
-        <p>
-          MedProof recomputes the cryptographic commitment
-          and detects changes to the recorded evidence.
-        </p>
+      </div>
 
-        <div class="verification-tags">
-          <span>✓ Commitment recomputation</span>
-          <span>✓ Integrity validation</span>
-          <span>✓ Tamper detection</span>
+
+      <div class="system-list">
+
+        <div class="system-row">
+
+          <span>
+            Evidence capture
+          </span>
+
+          <strong class="status-green">
+            <i></i>
+            OPERATIONAL
+          </strong>
+
+        </div>
+
+        <div class="system-row">
+
+          <span>
+            Offline verification
+          </span>
+
+          <strong class="status-green">
+            <i></i>
+            OPERATIONAL
+          </strong>
+
+        </div>
+
+        <div class="system-row">
+
+          <span>
+            CooL SDK
+          </span>
+
+          <strong class="status-cyan">
+            <i></i>
+            <span id="coolState">DEMO / SIMULATED</span>
+          </strong>
+
+        </div>
+
+        <div class="system-row">
+
+          <span>
+            Transparency evidence
+          </span>
+
+          <strong class="status-green">
+            <i></i>
+            OPERATIONAL
+          </strong>
+
         </div>
 
       </div>
 
 
-      <div class="verification-result">
+      <p class="system-note">
+        MedProof proves evidence integrity and provenance. It does not
+        evaluate clinical correctness, model fairness, or statutory
+        compliance.
+      </p>
+
+    </section>
+
+
+    <!-- =======================================================
+         VERIFICATION
+    ======================================================== -->
+
+    <section id="verification" class="verification-section">
+
+      <div class="verification-copy">
+
+        <div class="section-label green-label">
+          <span></span>
+          INDEPENDENT VERIFICATION
+        </div>
+
+        <h2>
+          Trust the evidence —
+          <span>not the claim.</span>
+        </h2>
+
+        <p>
+          Verification recomputes the recorded commitment and detects
+          whether the evidence has changed since it was created.
+        </p>
+
+        <div class="verification-tags">
+
+          <span>
+            ✓ Commitment recomputation
+          </span>
+
+          <span>
+            ✓ Integrity validation
+          </span>
+
+          <span>
+            ✓ Tamper detection
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="verify-box">
 
         <div id="verifyIcon" class="verify-icon">
           ✓
         </div>
 
-        <div class="verify-copy-small">
+        <div class="verify-content">
 
-          <small>VERIFICATION STATUS</small>
+          <span>
+            VERIFICATION STATUS
+          </span>
 
           <strong id="verifyTitle">
             Evidence is valid
           </strong>
 
-          <span id="verifyText">
+          <p id="verifyText">
             No tampering detected.
-          </span>
+          </p>
 
         </div>
 
-        <div class="secure-label">
+        <div class="verify-badge">
           SECURE
         </div>
 
@@ -456,128 +699,139 @@
     </section>
 
 
-    <!-- HOW IT WORKS -->
-    <section id="how-it-works" class="how-section">
+    <!-- =======================================================
+         ARCHITECTURE
+    ======================================================== -->
 
-      <div class="how-heading">
+    <section class="architecture">
+
+      <div class="section-heading">
 
         <div>
 
-          <div class="eyebrow purple-eyebrow">
+          <div class="section-label cyan-label">
             <span></span>
-            HOW MEDPROOF WORKS
+            PROOF PIPELINE
           </div>
 
           <h2>
             From AI event to
-            <em>trusted evidence.</em>
+            <span>verifiable evidence.</span>
           </h2>
 
         </div>
 
         <p>
-          A simple evidence layer that connects clinical AI
-          workflows with cryptographic verification.
+          A simple evidence boundary between clinical AI and independent
+          verification.
         </p>
 
       </div>
 
 
-      <div class="flow">
+      <div class="pipeline">
 
-        <div class="flow-card flow-blue">
+        <div class="pipeline-node active">
 
-          <div class="flow-number">01</div>
+          <div class="pipeline-icon">
+            ✦
+          </div>
 
-          <div class="flow-symbol">✦</div>
+          <strong>
+            AI EVENT
+          </strong>
 
-          <h3>Clinical AI</h3>
-
-          <p>
-            An AI-assisted event occurs.
-          </p>
-
-          <span>Event + metadata</span>
-
-        </div>
-
-
-        <div class="flow-connector">→</div>
-
-
-        <div class="flow-card flow-purple">
-
-          <div class="flow-number">02</div>
-
-          <div class="flow-symbol">◈</div>
-
-          <h3>MedProof</h3>
-
-          <p>
-            Sensitive information stays private.
-          </p>
-
-          <span>Privacy adapter</span>
+          <span>
+            Input + output
+          </span>
 
         </div>
 
 
-        <div class="flow-connector">→</div>
+        <div class="pipeline-arrow">
+          →
+        </div>
 
 
-        <div class="flow-card flow-cyan">
+        <div class="pipeline-node">
 
-          <div class="flow-number">03</div>
+          <div class="pipeline-icon">
+            ◈
+          </div>
 
-          <div class="flow-symbol">⌁</div>
+          <strong>
+            MEDPROOF
+          </strong>
 
-          <h3>CooL SDK</h3>
-
-          <p>
-            Evidence is committed and anchored.
-          </p>
-
-          <span>Commit · sign · anchor</span>
+          <span>
+            Privacy adapter
+          </span>
 
         </div>
 
 
-        <div class="flow-connector">→</div>
+        <div class="pipeline-arrow">
+          →
+        </div>
 
 
-        <div class="flow-card flow-orange">
+        <div class="pipeline-node cyan-node">
 
-          <div class="flow-number">04</div>
+          <div class="pipeline-icon">
+            ⌁
+          </div>
 
-          <div class="flow-symbol">▣</div>
+          <strong>
+            COO​L
+          </strong>
 
-          <h3>Receipt</h3>
-
-          <p>
-            A portable proof is generated.
-          </p>
-
-          <span>Evidence artifact</span>
+          <span>
+            Commit + record
+          </span>
 
         </div>
 
 
-        <div class="flow-connector">→</div>
+        <div class="pipeline-arrow">
+          →
+        </div>
 
 
-        <div class="flow-card flow-green">
+        <div class="pipeline-node">
 
-          <div class="flow-number">05</div>
+          <div class="pipeline-icon">
+            ▣
+          </div>
 
-          <div class="flow-symbol">✓</div>
+          <strong>
+            RECEIPT
+          </strong>
 
-          <h3>Verifier</h3>
+          <span>
+            Portable evidence
+          </span>
 
-          <p>
-            Anyone can check integrity.
-          </p>
+        </div>
 
-          <span>Independent verification</span>
+
+        <div class="pipeline-arrow">
+          →
+        </div>
+
+
+        <div class="pipeline-node green-node">
+
+          <div class="pipeline-icon">
+            ✓
+          </div>
+
+          <strong>
+            VERIFY
+          </strong>
+
+          <span>
+            Integrity check
+          </span>
 
         </div>
 
@@ -586,51 +840,67 @@
     </section>
 
 
-    <!-- CTA -->
+    <!-- =======================================================
+         FINAL CTA
+    ======================================================== -->
+
     <section class="final-cta">
 
       <div>
 
-        <div class="eyebrow">
+        <div class="section-label">
           <span></span>
-          BUILD TRUST INTO AI
+          MEDPROOF
         </div>
 
         <h2>
-          Don't just store AI decisions.
-          <em>Prove them.</em>
+          AI decisions shouldn't only be stored.
+          <span>They should be provable.</span>
         </h2>
 
       </div>
 
-      <a href="#create-proof" class="final-button">
-        Start a proof
+      <a class="button button-primary" href="#create-proof">
+        CREATE A PROOF
         <span>↑</span>
       </a>
 
     </section>
 
 
+    <!-- =======================================================
+         FOOTER
+    ======================================================== -->
+
     <footer>
 
       <div class="footer-brand">
-        <span>✚</span>
-        <strong>MedProof</strong>
+
+        <div class="footer-mark">
+          M
+        </div>
+
+        <div>
+          <strong>MedProof</strong>
+          <span>AI Decision Evidence</span>
+        </div>
+
       </div>
 
-      <p>
-        Reverse Hackathon · Cryptographic Observability
-      </p>
+      <div class="footer-center">
+        REVERSE HACKATHON · COO​L CRYPTOGRAPHIC OBSERVABILITY
+      </div>
 
-      <span>
-        Prototype · Synthetic data only
-      </span>
+      <div class="footer-right">
+        SYNTHETIC DATA · PROTOTYPE
+      </div>
 
     </footer>
 
   </main>
 
-  <script src="app.js"></script>
+
+  <script src="/app.js"></script>
 
 </body>
 </html>
