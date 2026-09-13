@@ -5,5 +5,28 @@ function id(){return 'MP-'+Date.now().toString(36).toUpperCase()+'-'+Math.random
 async function createLocal(){const input=$('input').value,output=$('output').value,model=$('model').value,version=$('version').value;const now=new Date().toISOString();const salt=crypto.randomUUID();const ih=await sha(salt+input),oh=await sha(salt+output);return {record_id:id(),time:now,metadata:{model,version,workflow:'clinical-ai-summary'},input_hash:ih,output_hash:oh,salt,software:{name:'MedProof',version:'1.0.0'},mode:'browser cryptographic demo'} }
 function render(r){state=r;$('empty').classList.add('hidden');$('receipt').classList.remove('hidden');$('mode').textContent=r.mode||'CooL SDK';$('rmodel').textContent=(r.metadata?.model||'—')+' / '+(r.metadata?.version||'—');$('rtime').textContent=new Date(r.time).toLocaleString();$('rid').textContent=r.record_id||r.record?.record_id||'—';$('ihash').textContent=r.input_hash||r.record?.event?.commitments?.input||'—';$('ohash').textContent=r.output_hash||r.record?.event?.commitments?.output||'—';$('verifyIcon').textContent='✓';$('verifyIcon').style.background='var(--green)';$('verifyTitle').textContent='Evidence is valid';$('verifyText').textContent='No tampering detected.'}
 $('create').onclick=async()=>{ $('createMsg').textContent='Creating cryptographic evidence…';try{const resp=await fetch('/api/record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({metadata:{model:$('model').value,version:$('version').value,workflow:'clinical-ai-summary'},input:$('input').value,output:$('output').value})});if(resp.ok){const d=await resp.json();render({...d.evidence,mode:'CooL SDK — live'});$('createMsg').textContent='Receipt created with the CooL SDK.'}else{const r=await createLocal();render(r);$('createMsg').textContent='Browser cryptographic demo active; install cool-nwc for live SDK mode.'}}catch{const r=await createLocal();render(r);$('createMsg').textContent='Browser cryptographic demo active; install cool-nwc for live SDK mode.'}};
-$('tamper').onclick=async()=>{if(!state)return;const original=state.input_hash||'';state.input_hash=(original.slice(0,-1)+(original.endsWith('0')?'1':'0'));$('ihash').textContent=state.input_hash;$('verifyIcon').textContent='×';$('verifyIcon').style.background='var(--red)';$('verifyTitle').textContent='Verification failed';$('verifyText').textContent='Tampering detected: commitment no longer matches the original event.'};
+$('tamper').onclick=async()=>{
+  if(!state){
+    $('verifyIcon').textContent='!';
+    $('verifyIcon').style.background='var(--red)';
+    $('verifyTitle').textContent='Create evidence first';
+    $('verifyText').textContent='No evidence receipt is available to tamper with.';
+    return;
+  }
+
+  const original=state.original_input_hash||state.input_hash||'';
+
+  state.original_input_hash=original;
+
+  state.input_hash=
+    original.slice(0,-1)+
+    (original.endsWith('0')?'1':'0');
+
+  $('ihash').textContent=state.input_hash;
+
+  $('verifyIcon').textContent='×';
+  $('verifyIcon').style.background='var(--red)';
+  $('verifyTitle').textContent='Verification failed';
+  $('verifyText').textContent='Tampering detected: commitment no longer matches the original event.';
+};
 (async()=>{try{const s=await fetch('/api/status').then(r=>r.json());$('sdkBadge').textContent=s.coolInstalled?'● CooL SDK live':'● Demo mode';$('sdkBadge').classList.toggle('live',s.coolInstalled)}catch{$('sdkBadge').textContent='● Browser demo'}})();
